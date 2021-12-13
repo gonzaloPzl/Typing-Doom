@@ -3,14 +3,19 @@ import sys
 from worlds import worlds, get_world
 from spritesheet import Spritesheet
 from enemy import Enemy
+from random import randint
 
 # Iniciamos pygame
 pygame.init()
 # Constantes
 window_size = (1280, 720)
-FPS = 30
+FPS = 60
 font_avaible = (168,1,9)
 font_disable = (226,226,226)
+GAME_OVER= False
+
+#### Puntaje ####
+palabras_acertadas = []
 
 # Creando la ventana
 screen = pygame.display.set_mode(window_size)
@@ -22,8 +27,11 @@ pygame.display.set_caption("Doom: Typing")
 icon = pygame.image.load("assets/icon.png")
 pygame.display.set_icon(icon)
 # Incluimos la fuente
-my_font = pygame.font.Font("fonts/DooM.ttf", 25) # Fuente enemigo
-my_font = pygame.font.Font("fonts/DooM.ttf", 30) # Fuente hud
+font_enemy = pygame.font.Font("fonts/DooM.ttf", 20) # Fuente enemigo
+font_hud = pygame.font.Font("fonts/DooM.ttf", 35) # Fuente hud
+font_score = pygame.font.Font("fonts/DooM.ttf", 45) # Fuente score
+font_game_over = pygame.font.Font("fonts/DooM.ttf", 100) # Fuente game over
+font_score_game_over = pygame.font.Font("fonts/DooM.ttf", 50) # Fuente game over
 
 # Cargamos imagenes
 hud = pygame.image.load("assets/hud.png").convert()
@@ -37,9 +45,13 @@ pygame.mouse.set_visible(0)
 
 #Texto en pantalla
 # palabra_random = get_world(worlds)
-palabra_random = "VV"
-text_enemy = my_font.render(palabra_random,0, font_disable)
-text_hud = my_font.render(palabra_random,0, font_disable)
+palabra_random = get_world()
+text_enemy = font_enemy.render(palabra_random,0, font_disable)
+text_hud = font_hud.render(palabra_random,0, font_disable)
+text_score = font_score.render(str(len(palabras_acertadas)),0, (207,2,6))
+text_game_over = font_game_over.render("GAME OVER",0, (207,2,6))
+text_score_game_over = font_score_game_over.render("Tu score fue :",0, font_disable)
+text_continue = font_hud.render("Presione ESPACIO para continuar",0,font_disable)
 
 enemigo_sprite = Spritesheet('assets/sprites/spritesheet.png')
 
@@ -49,14 +61,26 @@ enemigo = [enemigo_sprite.parse_sprite('iz.png'),enemigo_sprite.parse_sprite('ce
 
 enemigo_animation = Enemy("gonzalo", 1)
 
-enemigo_vel_x = 1.7
-enemigo_vel_y = 2
+enemigo_vel_x = 2 # normal 2
+enemigo_vel_y = 2 # normal 2
 nuevo_enemigo = enemigo_animation.animation(1)
 pos_enemigo_x = nuevo_enemigo[1]
 pos_enemigo_y = nuevo_enemigo[2]
 pos_letras_y = nuevo_enemigo[3]
 
-letras = []
+#### Sonidos ####
+sound_tecla = pygame.mixer.Sound("assets/sounds/tecla.wav")
+caco_1 = pygame.mixer.Sound("assets/sounds/caco_1.wav")
+caco_2 = pygame.mixer.Sound("assets/sounds/caco_2.wav")
+caco_3 = pygame.mixer.Sound("assets/sounds/caco_3.wav")
+caco_4 = pygame.mixer.Sound("assets/sounds/caco_4.wav")
+caco_5 = pygame.mixer.Sound("assets/sounds/caco_5.wav")
+caco_sounds = [caco_1,caco_2,caco_3,caco_4,caco_5]
+soundtrack = pygame.mixer.Sound("assets/sounds/soundtrack.wav")
+def get_random_caco(sounds):
+  random_sound = sounds[randint(0,len(sounds) - 1)]
+  return random_sound
+# letras = []
 ##### Convertir palabra en lista #####
 def palabra_a_lista(palabra):
   lista = []
@@ -67,9 +91,14 @@ def palabra_a_lista(palabra):
 lista_palabra = palabra_a_lista(palabra_random)
 print(lista_palabra)
 
+## Grupo de Sprites  ##
+enemigos = pygame.sprite.Group()
+
+### Sprites ###
+
 while True:
   # El loop que detecta todos los eventos
-
+  # soundtrack.play()
   for event in pygame.event.get():
     # print(event)
     if event.type == pygame.QUIT:
@@ -79,64 +108,103 @@ while True:
       if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_a and lista_palabra[0] == "A":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_b and lista_palabra[0] == "B":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_c and lista_palabra[0] == "C":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_d and lista_palabra[0] == "D":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_e and lista_palabra[0] == "E":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_f and lista_palabra[0] == "F":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_g and lista_palabra[0] == "G":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_h and lista_palabra[0] == "H":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_i and lista_palabra[0] == "I":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_j and lista_palabra[0] == "J":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_k and lista_palabra[0] == "K":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_l and lista_palabra[0] == "L":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_m and lista_palabra[0] == "M":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_n and lista_palabra[0] == "N":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_o and lista_palabra[0] == "O":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_p and lista_palabra[0] == "P":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_q and lista_palabra[0] == "Q":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_r and lista_palabra[0] == "R":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_s and lista_palabra[0] == "S":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_u and lista_palabra[0] == "U":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_t and lista_palabra[0] == "T":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_v and lista_palabra[0] == "V":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_w and lista_palabra[0] == "W":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_x and lista_palabra[0] == "X":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_y and lista_palabra[0] == "Y":
           lista_palabra.pop(0)
+          sound_tecla.play()
         if event.key == pygame.K_z and lista_palabra[0] == "Z":
           lista_palabra.pop(0)
+          sound_tecla.play()
+    if GAME_OVER == True:
+      if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_SPACE:
+          pos_enemigo_x = 400
+          pos_enemigo_y = 230
 
     ##### CUANDO SE VENCE AL ENEMIGO #####
-    # if len(lista_palabra) == 0:
-    #   print("El mounstro fue destruido")
-    #   print("Nuevo mounstro creado")
+    if len(lista_palabra) == 0:
+      caco = get_random_caco(caco_sounds)
+      caco.play()
+      palabras_acertadas.append(palabra_random)
+      palabra_random = get_world()
+      text_enemy = font_enemy.render(palabra_random,0, font_disable)
+      text_hud = font_hud.render(palabra_random,0, font_disable)
+      text_score = font_score.render(str(len(palabras_acertadas)),0,(207,2,6))
+      lista_palabra = palabra_a_lista(palabra_random)
+      pos_enemigo_x = 400
+      pos_enemigo_y = 230
+      # print("El mounstro fue destruido")
+      # print("Nuevo mounstro creado")
     ######################################
-        
-
 
     pos_cursor = pygame.mouse.get_pos()
     pos_cursor_x = pos_cursor[0]
@@ -145,25 +213,38 @@ while True:
 
 
   ###########################################
-  if pos_enemigo_x > 180:
+  if pos_enemigo_x > 180 :
     pos_enemigo_x -= enemigo_vel_x
-  if pos_enemigo_y < 350 and pos_enemigo_x < 250:
+  if pos_enemigo_y < 500 and pos_enemigo_x < 250:
     pos_enemigo_y += enemigo_vel_y
+  
   # print("Posicion enemigo x: {0} \nPosicion enemigo y: {1}".format(pos_enemigo_x,pos_enemigo_y))
   pos_letras_y = pos_enemigo_y - 50
   ###########################################
 
   # cargamos el escenario
   screen.blit(stage, [0,0])
-  # screen.blit(enemigo[3],[400,230])
-  screen.blit(enemigo[nuevo_enemigo[0]], [pos_enemigo_x,pos_enemigo_y])
-  # screen.blit(enemigo[nuevo_enemigo[0]], [280,240])
-  screen.blit(text_enemy,[pos_enemigo_x,pos_letras_y])
-  screen.blit(domo,[398,0])
   screen.blit(door, [532, 0]) # Puerta abierta y =-250, puerta cerrada y=0
-  screen.blit(hud,[0,597])
-  screen.blit(text_hud,[550,650])
-  screen.blit(cursor,[pos_cursor_x,pos_cursor_y])
+  if pos_enemigo_y == 500:
+    GAME_OVER = True
+    screen.blit(text_game_over,[130, 200])
+    screen.blit(text_score_game_over,[250, 395])
+    screen.blit(text_score,[740, 400])
+    screen.blit(text_continue,[200, 600])
+    palabras_acertadas.clear()
+  else:
+    # screen.blit(enemigo[3],[400,230])
+    if len(lista_palabra) > 0:
+      screen.blit(enemigo[nuevo_enemigo[0]], [pos_enemigo_x,pos_enemigo_y])
+    # screen.blit(enemigo[nuevo_enemigo[0]], [280,240])
+    if len(lista_palabra) > 0:
+      screen.blit(text_enemy,[pos_enemigo_x,pos_letras_y])
+    screen.blit(domo,[398,0])
+    
+    screen.blit(hud,[0,597])
+    screen.blit(text_hud,[550,650])
+    screen.blit(text_score,[960,618])
+    screen.blit(cursor,[pos_cursor_x,pos_cursor_y])
 
   # Este comando es para que se actualice la pantalla en cada bucle, por eso se pone al final
   pygame.display.flip()

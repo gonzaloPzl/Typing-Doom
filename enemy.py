@@ -1,6 +1,7 @@
 import pygame
+from spritesheet import Spritesheet
 
-class Enemy():
+class Enemy(pygame.sprite.Sprite):
   def __init__(self, word, pos):
       self.pos = pos
       self.word = word
