@@ -2,6 +2,9 @@
 
 ![portada.png](Typing%20Doom%20b5931fae171d484e9a90a5e1f0b5fb9e/portada.png)
 
+## Video demo
+[![alt](Typing%20Doom%20b5931fae171d484e9a90a5e1f0b5fb9e/video.png))](https://youtu.be/uPgGTYFotXs)
+
 ### Sprite system
 
 El sistema de sprites se hizo a través de la compresión de los sprites dentro de una misma imagen con el objetivo de ahorrar espacio y consumo de ram.
