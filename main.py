@@ -68,16 +68,27 @@ pos_enemigo_x = nuevo_enemigo[1]
 pos_enemigo_y = nuevo_enemigo[2]
 pos_letras_y = nuevo_enemigo[3]
 
-#### Sonidos ####
+##### Sonido teclas #####
 sound_tecla = pygame.mixer.Sound("assets/sounds/tecla.wav")
+#### Sonidos enemigo ####
 caco_1 = pygame.mixer.Sound("assets/sounds/caco_1.wav")
 caco_2 = pygame.mixer.Sound("assets/sounds/caco_2.wav")
 caco_3 = pygame.mixer.Sound("assets/sounds/caco_3.wav")
 caco_4 = pygame.mixer.Sound("assets/sounds/caco_4.wav")
 caco_5 = pygame.mixer.Sound("assets/sounds/caco_5.wav")
 caco_sounds = [caco_1,caco_2,caco_3,caco_4,caco_5]
+##### Sonidos personaje #####
+doomguy_1 = pygame.mixer.Sound("assets/sounds/doomguy_1.wav")
+doomguy_2 = pygame.mixer.Sound("assets/sounds/doomguy_2.wav")
+doomguy_3 = pygame.mixer.Sound("assets/sounds/doomguy_3.wav")
+doomguy_4 = pygame.mixer.Sound("assets/sounds/doomguy_4.wav")
+doomguy_5 = pygame.mixer.Sound("assets/sounds/doomguy_5.wav")
+doomguy_continue = pygame.mixer.Sound("assets/sounds/doomguy_continue.wav")
+doomguy_sounds = [doomguy_1,doomguy_2,doomguy_3,doomguy_4,doomguy_5,doomguy_continue]
+#### soundtrack ####
 soundtrack = pygame.mixer.Sound("assets/sounds/soundtrack.wav")
-def get_random_caco(sounds):
+##### funcion sonidos random #####
+def get_random_sound(sounds):
   random_sound = sounds[randint(0,len(sounds) - 1)]
   return random_sound
 # letras = []
@@ -187,12 +198,25 @@ while True:
     if GAME_OVER == True:
       if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_SPACE:
+          doomguy_continue.play()
           pos_enemigo_x = 400
           pos_enemigo_y = 230
 
+    ##### Sonidos aleatorios del personaje #####
+    if len(palabras_acertadas) > 0:
+      print(palabras_acertadas)
+      if len(palabras_acertadas) % 5 == 0:
+        doomguy_sound = get_random_sound(doomguy_sounds)
+        doomguy_sound.play()
+        palabras_acertadas.append(" ")
+
+
+
     ##### CUANDO SE VENCE AL ENEMIGO #####
     if len(lista_palabra) == 0:
-      caco = get_random_caco(caco_sounds)
+      if " " in palabras_acertadas:
+        palabras_acertadas.remove(" ")
+      caco = get_random_sound(caco_sounds)
       caco.play()
       palabras_acertadas.append(palabra_random)
       palabra_random = get_world()
