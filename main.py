@@ -207,9 +207,14 @@ while True:
         doomguy_sound = get_random_sound(doomguy_sounds)
         doomguy_sound.play()
         palabras_acertadas.append(" ")
+        if len(palabras_acertadas) % 5 == 0 or len(palabras_acertadas) % 3 == 0:
+          palabras_acertadas.append(" ")
+
 
     ##### CUANDO SE VENCE AL ENEMIGO #####
     if len(lista_palabra) == 0:
+      if " " in palabras_acertadas:
+        palabras_acertadas.remove(" ")
       if " " in palabras_acertadas:
         palabras_acertadas.remove(" ")
       caco = get_random_sound(caco_sounds)
