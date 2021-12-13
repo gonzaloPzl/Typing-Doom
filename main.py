@@ -61,8 +61,8 @@ enemigo = [enemigo_sprite.parse_sprite('iz.png'),enemigo_sprite.parse_sprite('ce
 
 enemigo_animation = Enemy("gonzalo", 1)
 
-enemigo_vel_x = 2.5 # normal 2
-enemigo_vel_y = 2.5 # normal 2
+enemigo_vel_x = 2 # normal 2
+enemigo_vel_y = 2 # normal 2
 nuevo_enemigo = enemigo_animation.animation(1)
 pos_enemigo_x = nuevo_enemigo[1]
 pos_enemigo_y = nuevo_enemigo[2]
@@ -245,14 +245,14 @@ while True:
 
   ##### DIFICULTAD #####
   if len(palabras_acertadas) > 5:
-    enemigo_vel_x = 3 # normal 2
-    enemigo_vel_y = 3 # normal 2
+    enemigo_vel_x = 2.5 # normal 2
+    enemigo_vel_y = 2.5 # normal 2
   if len(palabras_acertadas) > 10:
-    enemigo_vel_x = 3.5
-    enemigo_vel_x = 3.5
+    enemigo_vel_x = 3
+    enemigo_vel_x = 3
   if len(palabras_acertadas) > 15:
-    enemigo_vel_x = 4
-    enemigo_vel_x = 4
+    enemigo_vel_x = 3.5
+    enemigo_vel_x = 3.5
 
   # cargamos el escenario
   screen.blit(stage, [0,0])
