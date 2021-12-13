@@ -11,7 +11,7 @@ El sistema de sprites se hizo a través de la compresión de los sprites dentro 
 ![spritesheet.png](Typing%20Doom%20b5931fae171d484e9a90a5e1f0b5fb9e/spritesheet.png)
 
 Los sprites se parsean y luego se guardan dentro de una lista ya separados y listos para ser llamados por su numero de indice. Para poder realizar el parseo se utiliza un archivo **.json** (*spritesheets.json*) que dentro tiene la información de la ubicación en el eje x e y donde se encuentra el sprite junto con su tamaño para así poder ser devueltos por la función **get_sprite.**
-
+***
 ### Animación del enemigo
 
 La animación del enemigo se realiza a través de una función de la clase **enemy** que nos devuelve el sprite que se requiere, y la coordenada x e y.
@@ -19,7 +19,7 @@ La animación del enemigo se realiza a través de una función de la clase **ene
 ![enemigo-sprites.gif](Typing%20Doom%20b5931fae171d484e9a90a5e1f0b5fb9e/enemigo-sprites.gif)
 
 Estas coordenadas se van a ir aumentando por una variable hasta que la coordenada Y llegue a 500
-
+***
 ### Mecánica principal del juego
 
 El juego consiste en un shooter mecanográfico basado en Doom, es decir eliminamos enemigos mediante la escritura. Para poder lograr esta mecánica lo que se hace es servirse de un diccionario de palabras que se encuentran en el archivo **words.py,** el mismo archivo también contiene un función que nos retorna una palabra al azar de la lista.
@@ -74,7 +74,7 @@ if len(palabras_acertadas) > 5:
     enemigo_vel_x = 3.5
     enemigo_vel_x = 3.5
 ```
-
+***
 ### Sonidos
 
 Los sonidos se encuentran en la carpeta **assets/sounds**, estan dividios en el soundtrack de fondo, los sonidos del enemigo y del personaje.
@@ -120,7 +120,8 @@ if len(palabras_acertadas) > 0:
 ```
 
 A lo ultimo se agrega un espacio vacío a la lista de palabras acertadas ya que sino el bucle while de juego se seguiría ejecutando y la condición se cumpliría hasta que se acerté otra palabra por lo que se estarían reproduciendo sonidos cada vez que se detecte un evento de teclado. Para evitar eso se añade y luego se retira el espacio en blanco dentro de la lista.
-
+***
 ## Video demo
 
 [![alt](Typing%20Doom%20b5931fae171d484e9a90a5e1f0b5fb9e/video.png))](https://youtu.be/hPhgsvS7eoY)
+***
