@@ -86,7 +86,8 @@ doomguy_5 = pygame.mixer.Sound("assets/sounds/doomguy_5.wav")
 doomguy_continue = pygame.mixer.Sound("assets/sounds/doomguy_continue.wav")
 doomguy_sounds = [doomguy_1,doomguy_2,doomguy_3,doomguy_4,doomguy_5,doomguy_continue]
 #### soundtrack ####
-soundtrack = pygame.mixer.Sound("assets/sounds/soundtrack.wav")
+pygame.mixer.music.load("assets/sounds/soundtrack.wav")
+pygame.mixer.music.play(-1)
 ##### funcion sonidos random #####
 def get_random_sound(sounds):
   random_sound = sounds[randint(0,len(sounds) - 1)]
@@ -100,7 +101,6 @@ def palabra_a_lista(palabra):
   return lista
 
 lista_palabra = palabra_a_lista(palabra_random)
-print(lista_palabra)
 
 ## Grupo de Sprites  ##
 enemigos = pygame.sprite.Group()
@@ -111,7 +111,6 @@ while True:
   # El loop que detecta todos los eventos
   # soundtrack.play()
   for event in pygame.event.get():
-    # print(event)
     if event.type == pygame.QUIT:
       sys.exit()
 
@@ -204,13 +203,10 @@ while True:
 
     ##### Sonidos aleatorios del personaje #####
     if len(palabras_acertadas) > 0:
-      print(palabras_acertadas)
-      if len(palabras_acertadas) % 5 == 0:
+      if len(palabras_acertadas) % 5 == 0 or len(palabras_acertadas) % 3 == 0:
         doomguy_sound = get_random_sound(doomguy_sounds)
         doomguy_sound.play()
         palabras_acertadas.append(" ")
-
-
 
     ##### CUANDO SE VENCE AL ENEMIGO #####
     if len(lista_palabra) == 0:
@@ -226,15 +222,11 @@ while True:
       lista_palabra = palabra_a_lista(palabra_random)
       pos_enemigo_x = 400
       pos_enemigo_y = 230
-      # print("El mounstro fue destruido")
-      # print("Nuevo mounstro creado")
     ######################################
 
     pos_cursor = pygame.mouse.get_pos()
     pos_cursor_x = pos_cursor[0]
     pos_cursor_y = pos_cursor[1]
-  
-
 
   ###########################################
   if pos_enemigo_x > 180 :
@@ -242,7 +234,6 @@ while True:
   if pos_enemigo_y < 500 and pos_enemigo_x < 250:
     pos_enemigo_y += enemigo_vel_y
   
-  # print("Posicion enemigo x: {0} \nPosicion enemigo y: {1}".format(pos_enemigo_x,pos_enemigo_y))
   pos_letras_y = pos_enemigo_y - 50
   ###########################################
 
